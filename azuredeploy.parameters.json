@@ -3,28 +3,25 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "prefix": {
-      "value": "acr"
+      "value": "prefix to be applied to resource names"
     },
     "virtualNetworkResourceGroupName": {
-      "value": "MLWorkspace_Networking"
+      "value": "name resource group containing VNet"
     },
     "virtualNetworkName": {
-      "value": "vnet1"
+      "value": "name of virtual network"
     },
     "subnetName": {
-      "value": "testsub"
+      "value": "name of subnet"
     },
     "kvObjectId": {
-      "value": "a5259260-1d6a-4d03-b615-2f0f68ceb0ef"
-    },
-    "vmSize": {
-      "value": "Standard_D3_v2"
+      "value": "object ID to be assigned access to KeyVault"
     },
     "principalID": {
-      "value": "e188b955-8fc8-4d92-824c-a66830fe900d"
+      "value": "id of user/group to be given access"
     },
     "roleDefID": {
-      "value": "/subscriptions/9f49ed99-ef69-4379-a46e-746eb206758d/providers/Microsoft.Authorization/roleDefinitions/acdd72a7-3385-48ef-bd42-f606fba81ae7"
+      "value": "GUID of RBAC role to be assigned"
     }
   }
 }

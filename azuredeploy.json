@@ -146,7 +146,8 @@
     "localAdminUserSecretName": "dslocaluser",
     "localAdminPasswordSecretName": "dslocaluserpass",
     "rbacTemplateFileName": "RBACassignment.json",
-    "rbacassignmenturl": "[concat(parameters('_artifactsLocation'), '/', variables('rbacTemplateFileName'), parameters('_artifactsLocationSasToken'))]"
+    "rbacassignmenturl": "[concat(parameters('_artifactsLocation'), '/', variables('rbacTemplateFileName'), parameters('_artifactsLocationSasToken'))]",
+    "roleDefIDpath": "[concat(subscription().id, '/providers/Microsoft.Authorization/roleDefinitions/', parameters('roleDefId'))]"
   },
   "resources": [
     {
@@ -284,7 +285,7 @@
       }
     },
     {
-      "name": "RBACassignment",
+      "name": "RBACassignment-KeyVault",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2016-09-01",
       "dependsOn": [
@@ -299,17 +300,172 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
+          "resourceType": {
+            "value": "KeyVault"
+          },
           "principalID": {
             "value": "[parameters('principalID')]"
           },
           "roleDefID": {
-            "value": "[parameters('roleDefID')]"
+            "value": "[variables('roleDefIDpath')]"
+          },
+          "resourceName": {
+            "value": "[variables('keyVaultName')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "RBACassignment-DSVM",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "dependsOn": [
+        "keyvaultdeployment",
+        "mlservicesdeployment",
+        "datasciencevmdeployment"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('rbacassignmenturl')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "resourceType": {
+            "value": "DSVM"
+          },
+          "principalID": {
+            "value": "[parameters('principalID')]"
+          },
+          "roleDefID": {
+            "value": "[variables('roleDefIDpath')]"
+          },
+          "resourceName": {
+            "value": "[variables('vmName')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "RBACassignment-StorageAccnt",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "dependsOn": [
+        "keyvaultdeployment",
+        "mlservicesdeployment",
+        "datasciencevmdeployment"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('rbacassignmenturl')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "resourceType": {
+            "value": "StorageAccnt"
+          },
+          "principalID": {
+            "value": "[parameters('principalID')]"
+          },
+          "roleDefID": {
+            "value": "[variables('roleDefIDpath')]"
+          },
+          "resourceName": {
+            "value": "[variables('dataStorageAccountName')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "RBACassignment-AppInsights",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "dependsOn": [
+        "keyvaultdeployment",
+        "mlservicesdeployment",
+        "datasciencevmdeployment"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('rbacassignmenturl')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "resourceType": {
+            "value": "AppInsights"
+          },
+          "principalID": {
+            "value": "[parameters('principalID')]"
+          },
+          "roleDefID": {
+            "value": "[variables('roleDefIDpath')]"
+          },
+          "resourceName": {
+            "value": "[variables('appInsightsName')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "RBACassignment-MLWorkspace",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "dependsOn": [
+        "keyvaultdeployment",
+        "mlservicesdeployment",
+        "datasciencevmdeployment"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('rbacassignmenturl')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "resourceType": {
+            "value": "MLWorkspace"
+          },
+          "principalID": {
+            "value": "[parameters('principalID')]"
+          },
+          "roleDefID": {
+            "value": "[variables('roleDefIDpath')]"
           },
           "resourceName": {
             "value": "[variables('workspaceName')]"
-          },
+          }
+        }
+      }
+    },
+    {
+      "name": "RBACassignment-ADF",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "dependsOn": [
+        "keyvaultdeployment",
+        "mlservicesdeployment",
+        "datasciencevmdeployment"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('rbacassignmenturl')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
           "resourceType": {
-            "value": "Microsoft.MachineLearningServices/workspaces"
+            "value": "ADF"
+          },
+          "principalID": {
+            "value": "[parameters('principalID')]"
+          },
+          "roleDefID": {
+            "value": "[variables('roleDefIDpath')]"
+          },
+          "resourceName": {
+            "value": "[variables('dataFactoryName')]"
           }
         }
       }
