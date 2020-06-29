@@ -108,6 +108,18 @@
       "metadata": {
         "description": "object id of user who will be keyvault owner"
       }
+    },
+    "principalID": {
+      "type": "string",
+      "metadata": {
+        "description": "object id of the user or group to grant access to"
+      }
+    },
+    "roleDefID": {
+      "type": "string",
+      "metadata": {
+        "description": "GUID of the role to assign user(s) to"
+      }
     }
   },
   "variables": {
@@ -132,7 +144,9 @@
     "storageEndptBypass": "AzureServices",
     "keyVaultEndptBypass": "AzureServices",
     "localAdminUserSecretName": "dslocaluser",
-    "localAdminPasswordSecretName": "dslocaluserpass"
+    "localAdminPasswordSecretName": "dslocaluserpass",
+    "rbacTemplateFileName": "RBACassignment.json",
+    "rbacassignmenturl": "[concat(parameters('_artifactsLocation'), '/', variables('rbacTemplateFileName'), parameters('_artifactsLocationSasToken'))]"
   },
   "resources": [
     {
@@ -265,6 +279,37 @@
           },
           "MLWSSku": {
             "value": "[variables('MLWSSku')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "RBACassignment",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2016-09-01",
+      "dependsOn": [
+        "keyvaultdeployment",
+        "mlservicesdeployment",
+        "datasciencevmdeployment"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('rbacassignmenturl')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "principalID": {
+            "value": "[parameters('principalID')]"
+          },
+          "roleDefID": {
+            "value": "[parameters('roleDefID')]"
+          },
+          "resourceName": {
+            "value": "[variables('workspaceName')]"
+          },
+          "resourceType": {
+            "value": "Microsoft.MachineLearningServices/workspaces"
           }
         }
       }
