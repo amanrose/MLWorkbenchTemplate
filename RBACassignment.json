@@ -40,7 +40,7 @@
             "condition": "[equals(parameters('resourceType'),'StorageAccnt')]",
             "type": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
             "apiVersion":"2017-09-01",
-            "name": "[concat(parameters('resourceName'), '/Microsoft.Authorization/', guid(uniqueString(parameters('resourceName'))))]",
+            "name": "[concat(parameters('resourceName'), '/Microsoft.Authorization/', guid(uniqueString(resourceGroup().id, parameters('resourceName'))))]",
             "properties":{
                 "roleDefinitionId": "[parameters('roleDefId')]",
                 "principalId":"[parameters('principalId')]"
@@ -70,7 +70,7 @@
             "condition": "[equals(parameters('resourceType'),'ADF')]",
             "type": "Microsoft.DataFactory/factories/providers/roleAssignments",
             "apiVersion":"2017-09-01",
-            "name": "[concat(parameters('resourceName'), '/Microsoft.Authorization/', guid(uniqueString(parameters('resourceName'))))]",
+            "name": "[concat(parameters('resourceName'), '/Microsoft.Authorization/', guid(uniqueString(resourceGroup().id, deployment().name, parameters('resourceName'))))]",
             "properties":{
                 "roleDefinitionId": "[parameters('roleDefId')]",
                 "principalId":"[parameters('principalId')]"
