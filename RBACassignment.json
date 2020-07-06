@@ -13,14 +13,18 @@
         },
         "resourceType": {
             "type": "string"
-        }
+        },
+        "utcvalue": {
+            "type": "string",
+            "defaultValue": "[utcNow()]"
+        },
     },
     "resources":[
         {
             "condition": "[equals(parameters('resourceType'),'KeyVault')]",
             "type": "Microsoft.KeyVault/vaults/providers/roleAssignments",
             "apiVersion":"2017-09-01",
-            "name": "[concat(parameters('resourceName'), '/Microsoft.Authorization/', guid(uniqueString(parameters('resourceName'))))]",
+            "name": "[concat(parameters('resourceName'), '/Microsoft.Authorization/', guid(uniqueString(parameters('resourceName'), parameters('utcvalue'))))]",
             "properties":{
                 "roleDefinitionId": "[parameters('roleDefId')]",
                 "principalId":"[parameters('principalId')]"
@@ -30,7 +34,7 @@
             "condition": "[equals(parameters('resourceType'),'DSVM')]",
             "type": "Microsoft.Compute/virtualMachines/providers/roleAssignments",
             "apiVersion":"2017-09-01",
-            "name": "[concat(parameters('resourceName'), '/Microsoft.Authorization/', guid(uniqueString(parameters('resourceName'))))]",
+            "name": "[concat(parameters('resourceName'), '/Microsoft.Authorization/', guid(uniqueString(parameters('resourceName'), parameters('utcvalue'))))]",
             "properties":{
                 "roleDefinitionId": "[parameters('roleDefId')]",
                 "principalId":"[parameters('principalId')]"
@@ -40,7 +44,7 @@
             "condition": "[equals(parameters('resourceType'),'StorageAccnt')]",
             "type": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
             "apiVersion":"2017-09-01",
-            "name": "[concat(parameters('resourceName'), '/Microsoft.Authorization/', guid(uniqueString(resourceGroup().id, parameters('resourceName'))))]",
+            "name": "[concat(parameters('resourceName'), '/Microsoft.Authorization/', guid(uniqueString(resourceGroup().id, parameters('resourceName'), parameters('utcvalue'))))]",
             "properties":{
                 "roleDefinitionId": "[parameters('roleDefId')]",
                 "principalId":"[parameters('principalId')]"
@@ -50,7 +54,7 @@
             "condition": "[equals(parameters('resourceType'),'AppInsights')]",
             "type": "Microsoft.Insights/components/providers/roleAssignments",
             "apiVersion":"2017-09-01",
-            "name": "[concat(parameters('resourceName'), '/Microsoft.Authorization/', guid(uniqueString(parameters('resourceName'))))]",
+            "name": "[concat(parameters('resourceName'), '/Microsoft.Authorization/', guid(uniqueString(parameters('resourceName'), parameters('utcvalue'))))]",
             "properties":{
                 "roleDefinitionId": "[parameters('roleDefId')]",
                 "principalId":"[parameters('principalId')]"
@@ -60,7 +64,7 @@
             "condition": "[equals(parameters('resourceType'),'MLWorkspace')]",
             "type": "Microsoft.MachineLearningServices/workspaces/providers/roleAssignments",
             "apiVersion":"2017-09-01",
-            "name": "[concat(parameters('resourceName'), '/Microsoft.Authorization/', guid(uniqueString(parameters('resourceName'))))]",
+            "name": "[concat(parameters('resourceName'), '/Microsoft.Authorization/', guid(uniqueString(parameters('resourceName'), parameters('utcvalue'))))]",
             "properties":{
                 "roleDefinitionId": "[parameters('roleDefId')]",
                 "principalId":"[parameters('principalId')]"
@@ -70,7 +74,7 @@
             "condition": "[equals(parameters('resourceType'),'ADF')]",
             "type": "Microsoft.DataFactory/factories/providers/roleAssignments",
             "apiVersion":"2017-09-01",
-            "name": "[concat(parameters('resourceName'), '/Microsoft.Authorization/', guid(uniqueString(resourceGroup().id, deployment().name, parameters('resourceName'))))]",
+            "name": "[concat(parameters('resourceName'), '/Microsoft.Authorization/', guid(uniqueString(resourceGroup().id, deployment().name, parameters('resourceName'), parameters('utcvalue'))))]",
             "properties":{
                 "roleDefinitionId": "[parameters('roleDefId')]",
                 "principalId":"[parameters('principalId')]"
