@@ -1,27 +1,31 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "prefix": {
-      "value": "prefix to be applied to resource names"
-    },
-    "virtualNetworkResourceGroupName": {
-      "value": "name resource group containing VNet"
-    },
-    "virtualNetworkName": {
-      "value": "name of virtual network"
-    },
-    "subnetName": {
-      "value": "name of subnet"
-    },
-    "kvObjectId": {
-      "value": "object ID to be assigned access to KeyVault"
-    },
-    "principalID": {
-      "value": "id of user/group to be given access"
-    },
-    "roleDefID": {
-      "value": "GUID of RBAC role to be assigned"
-    }
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "prefix": {
+        "value": "prefix to be applied to resource names"
+      },
+      "virtualNetworkResourceGroupName": {
+        "value": "name resource group containing VNet"
+      },
+      "virtualNetworkName": {
+        "value": "name of virtual network"
+      },
+      "subnetName": {
+        "value": "name of subnet"
+      },
+      "kvObjectId": {
+        "value": "object ID to be assigned access to KeyVault"
+      },
+      "runRBAC": {
+        "value": true
+      },
+      "principalID": {
+        "value": "id of user/group to be given access"
+      },
+      "roleDefID": {
+        "value": "GUID of RBAC role to be assigned"
+      }
+    }
   }
-}
+  

@@ -120,6 +120,13 @@
       "metadata": {
         "description": "GUID of the role to assign user(s) to"
       }
+    },
+    "runRBAC": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "true/false boolean value to run RBAC assignment or not"
+      }
     }
   },
   "variables": {
@@ -285,6 +292,7 @@
       }
     },
     {
+      "condition": "[parameters('runRBAC')]",
       "name": "RBACassignment-KeyVault",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2016-09-01",
@@ -316,6 +324,7 @@
       }
     },
     {
+      "condition": "[parameters('runRBAC')]",
       "name": "RBACassignment-DSVM",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2016-09-01",
@@ -347,6 +356,7 @@
       }
     },
     {
+      "condition": "[parameters('runRBAC')]",
       "name": "RBACassignment-StorageAccnt",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2016-09-01",
@@ -378,6 +388,7 @@
       }
     },
     {
+      "condition": "[parameters('runRBAC')]",
       "name": "RBACassignment-AppInsights",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2016-09-01",
@@ -409,6 +420,7 @@
       }
     },
     {
+      "condition": "[parameters('runRBAC')]",
       "name": "RBACassignment-MLWorkspace",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2016-09-01",
@@ -440,6 +452,7 @@
       }
     },
     {
+      "condition": "[parameters('runRBAC')]",
       "name": "RBACassignment-ADF",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2016-09-01",
