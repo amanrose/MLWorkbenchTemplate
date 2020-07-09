@@ -10,7 +10,8 @@ Param(
     [string] $TemplateParametersFile = 'azuredeploy.parameters.json',
     [string] $ArtifactStagingDirectory = '.',
     [string] $DSCSourceFolder = 'DSC',
-    [switch] $ValidateOnly
+    [switch] $ValidateOnly,
+    [switch] $runRBAC
 )
 
 try {
@@ -29,6 +30,19 @@ function Format-ValidationOutput {
 $OptionalParameters = New-Object -TypeName Hashtable
 $TemplateFile = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $TemplateFile))
 $TemplateParametersFile = [System.IO.Path]::GetFullPath([System.IO.Path]::Combine($PSScriptRoot, $TemplateParametersFile))
+
+if($runRBAC) {
+    $JsonParameters = Get-Content $TemplateParametersFile -Raw | ConvertFrom-Json
+    if (($JsonParameters | Get-Member -Type NoteProperty 'parameters') -ne $null) {
+        $JsonParameters = $JsonParameters.parameters
+    }
+    $runRBACparam = 'runRBAC'
+    $OptionalParameters[$runRBACparam] = $JsonParameters | Select -Expand $runRBACparam -ErrorAction Ignore | Select -Expand 'value' -ErrorAction Ignore
+    # Generate the value for runRBAC
+    if ($OptionalParameters[$runRBACparam] -eq $null) {
+        $OptionalParameters[$runRBACparam] = 1
+    }
+}
 
 if ($UploadArtifacts) {
     # Convert relative paths to absolute paths if needed
