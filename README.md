@@ -1,13 +1,12 @@
 # ML Workbench Template with RBAC assignment per resource
 NOTE: This template includes customizations to make RBAC assignments per resource. You can find the original template [here](https://github.com/Azure/MLWorkbenchTemplate/).
-<br>To run with RBAC assignment, set the following parameters:
+<br>To run with RBAC assignment, set the following parameters in azuredeploy.parameters.json:
 | Parameter                              | Description                                                                                                                                                                                                                                                                                            |
 |----------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| runRBAC                                      | true (boolean value for template to run RBAC assignment, or not)                                                                                                                                                                                                                                        |
 | principalID                                  | ObjectID of the user or group to assign access to. Has format xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.                                                                                                                                                                                        |
 | roleDefID                                    | ID of the role you want user/group assigned to. Has format xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.<br>You can get this info with the the command: Get-AzRoleDefinition -Name \<role name\>.                                                 |
 
-With these parameters set, you can follow the instructions below to run the template. Each service deployed via the template will get an RBAC assignment for the user and role defined in your parameters. If you wish to make an additional assignment, run the template again with a new principalID and/or roleDefID. If you wish to run the template, but are not making new RBAC assignments, set the runRBAC parameter to false or the template will experience errors (you can not make the same assignment twice).
+If you run the template (using the instructions below) with the -runRBAC option each service deployed will get an RBAC assignment for the user and role defined in your parameters. If you wish to make an additional assignment, run the template again with the -runRBAC option and a new principalID and/or roleDefID. If you wish to run the template, but are not making new RBAC assignments, run without the -runRBAC option or the template will experience errors (you can not make the same assignment twice).
 
 # Machine Learning Workbench Template
 
