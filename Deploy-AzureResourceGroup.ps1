@@ -11,7 +11,8 @@ Param(
     [string] $ArtifactStagingDirectory = '.',
     [string] $DSCSourceFolder = 'DSC',
     [switch] $ValidateOnly,
-    [switch] $runRBAC
+    [switch] $runRBAC,
+    [string] $costTag
 )
 
 try {
@@ -78,7 +79,7 @@ if ($UploadArtifacts) {
     # Create the storage account if it doesn't already exist
     if ($StorageAccount -eq $null) {
         $StorageResourceGroupName = 'ARM_Deploy_Staging'
-        New-AzResourceGroup -Location "$ResourceGroupLocation" -Name $StorageResourceGroupName -Force
+        New-AzResourceGroup -Location "$ResourceGroupLocation" -Name $StorageResourceGroupName -Force 
         $StorageAccount = New-AzStorageAccount -StorageAccountName $StorageAccountName -Type 'Standard_LRS' -ResourceGroupName $StorageResourceGroupName -Location "$ResourceGroupLocation"
     }
 
@@ -105,7 +106,7 @@ if ($UploadArtifacts) {
 
 # Create the resource group only when it doesn't already exist
 if ((Get-AzResourceGroup -Name $ResourceGroupName -Location $ResourceGroupLocation -Verbose -ErrorAction SilentlyContinue) -eq $null) {
-    New-AzResourceGroup -Name $ResourceGroupName -Location $ResourceGroupLocation -Verbose -Force -ErrorAction Stop
+    New-AzResourceGroup -Name $ResourceGroupName -Location $ResourceGroupLocation -Tag @{costCenter=$costTag} -Verbose -Force -ErrorAction Stop
 }
 
 if ($ValidateOnly) {
