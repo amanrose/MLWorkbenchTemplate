@@ -25,6 +25,9 @@
     },
     "localAdminPasswordSecretValue": {
       "type": "securestring"
+    },
+    "costCenter": {
+      "type": "string"
     }
   },
   "variables": {
@@ -72,7 +75,8 @@
       "name": "[variables('keyVaultName')]",
       "location": "[variables('location')]",
       "tags": {
-        "displayName": "datasciencekeyvault"
+        "displayName": "datasciencekeyvault",
+        "costCenter": "[parameters('costCenter')]"
       },
       "properties": {
         "tenantId": "[variables('tenantId')]",
@@ -109,7 +113,8 @@
       "apiVersion": "2018-02-14",
       "location": "[variables('location')]",
       "tags": {
-        "displayName": "localAdminUserSecret"
+        "displayName": "localAdminUserSecret",
+        "costCenter": "[parameters('costCenter')]"
       },
       "dependsOn": [
         "[variables('keyVaultName')]"
@@ -124,7 +129,8 @@
       "apiVersion": "2018-02-14",
       "location": "[variables('location')]",
       "tags": {
-        "displayName": "localAdminPasswordSecret"
+        "displayName": "localAdminPasswordSecret",
+        "costCenter": "[parameters('costCenter')]"
       },
       "dependsOn": [
         "[variables('keyVaultName')]"

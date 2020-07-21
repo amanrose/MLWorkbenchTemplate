@@ -25,6 +25,9 @@
     },
     "adminPassword": {
       "type": "securestring"
+    },
+    "costCenter": {
+      "type": "string"
     }
   },
   "variables": {
@@ -81,8 +84,11 @@
       "type": "Microsoft.Network/networkInterfaces",
       "name": "[variables('nicName')]",
       "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "DataScienceVM-nic",
+        "costCenter": "[parameters('costCenter')]"
+      },
       "dependsOn": [
-
       ],
       "properties": {
         "ipConfigurations": [
@@ -103,6 +109,10 @@
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[parameters('vmName')]",
       "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "DataScienceVM",
+        "costCenter": "[parameters('costCenter')]"
+      },
       "dependsOn": [
         "[variables('nicName')]"
       ],

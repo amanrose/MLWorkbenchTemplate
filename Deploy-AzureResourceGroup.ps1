@@ -12,7 +12,7 @@ Param(
     [string] $DSCSourceFolder = 'DSC',
     [switch] $ValidateOnly,
     [switch] $runRBAC,
-    [string] $costTag
+    [string] $costTag = "70001036"
 )
 
 try {
@@ -44,6 +44,15 @@ if($runRBAC) {
         $OptionalParameters[$runRBACparam] = 1
     }
 }
+
+#Add cost center to parameters
+$JsonParameters = Get-Content $TemplateParametersFile -Raw | ConvertFrom-Json
+if (($JsonParameters | Get-Member -Type NoteProperty 'parameters') -ne $null) {
+    $JsonParameters = $JsonParameters.parameters
+}
+$costCenter = 'costCenter'
+$OptionalParameters[$costCenter] = $JsonParameters | Select -Expand $costCenter -ErrorAction Ignore | Select -Expand 'value' -ErrorAction Ignore
+$OptionalParameters[$costCenter] = $costTag
 
 if ($UploadArtifacts) {
     # Convert relative paths to absolute paths if needed

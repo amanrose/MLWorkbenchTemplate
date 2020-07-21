@@ -127,6 +127,58 @@
       "metadata": {
         "description": "true/false boolean value to run RBAC assignment or not"
       }
+    },
+    "costCenter": {
+      "type": "string",
+      "defaultValue": "70001036",
+      "allowedValues": [
+        "70001048",
+        "70001063",
+        "70001061",
+        "70001062",
+        "70001043",
+        "70001044",
+        "70001046",
+        "70001050",
+        "70001051",
+        "70001053",
+        "70001073",
+        "70001080",
+        "70001033",
+        "70001034",
+        "70001042",
+        "70001047",
+        "70001037",
+        "70001039",
+        "70001040",
+        "70001049",
+        "70001072",
+        "70001045",
+        "70001065",
+        "70001041",
+        "70001071",
+        "70001087",
+        "70001070",
+        "70001036",
+        "70001035",
+        "70001030",
+        "70001032",
+        "70001054",
+        "70001059",
+        "70001069",
+        "70001052",
+        "70001038",
+        "70001055",
+        "70001085",
+        "70001086",
+        "70001088",
+        "70001089",
+        "72007343",
+        "70001184",
+        "70001455",
+        "74000874",
+        "73012440"
+      ]
     }
   },
   "variables": {
@@ -154,7 +206,7 @@
     "localAdminPasswordSecretName": "dslocaluserpass",
     "rbacTemplateFileName": "RBACassignment.json",
     "rbacassignmenturl": "[concat(parameters('_artifactsLocation'), '/', variables('rbacTemplateFileName'), parameters('_artifactsLocationSasToken'))]",
-    "roleDefIDpath": "[concat(subscription().id, '/providers/Microsoft.Authorization/roleDefinitions/', parameters('roleDefId'))]"
+    "roleDefIDpath": "[concat(subscription().id, '/providers/Microsoft.Authorization/roleDefinitions/', parameters('roleDefId'))]",
   },
   "resources": [
     {
@@ -192,6 +244,9 @@
           },
           "localAdminPasswordSecretValue": {
             "value": "[parameters('localAdminPasswordSecretValue')]"
+          },
+          "costCenter": {
+            "value": "[parameters('costCenter')]"
           }
         }
       }
@@ -237,6 +292,9 @@
               },
               "secretName": "[variables('localAdminPasswordSecretName')]"
             }
+          },
+          "costCenter": {
+            "value": "[parameters('costCenter')]"
           }
         }
       }
@@ -287,6 +345,9 @@
           },
           "MLWSSku": {
             "value": "[variables('MLWSSku')]"
+          },
+          "costCenter": {
+            "value": "[parameters('costCenter')]"
           }
         }
       }
