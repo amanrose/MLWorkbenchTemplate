@@ -8,8 +8,7 @@ NOTE: This template includes customizations to make RBAC assignments per resourc
 
 If you run the template (using the instructions below) with the `-runRBAC` option each service deployed will get an RBAC assignment for the user and role defined in your parameters. If you wish to make an additional assignment, run the template again with the `-runRBAC` option and a new principalID and/or roleDefID. If you wish to run the template, but are not making new RBAC assignments, run without the `-runRBAC` option or the template will experience errors (you can not make the same assignment twice).
 
-# Include cost center tag on Resource Group
-To tag the resource group with a cost center, use the deployment flag -costTag.
+By default, the resource group and all resources will be tagged with a cost center (70001036 by default). You may use the deployment flag `-costTag` to change this value.
 
 # Machine Learning Workbench Template
 
