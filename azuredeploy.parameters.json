@@ -17,9 +17,6 @@
       "kvObjectId": {
         "value": "object ID to be assigned access to KeyVault"
       },
-      "runRBAC": {
-        "value": true
-      },
       "principalID": {
         "value": "id of user/group to be given access"
       },
