@@ -179,7 +179,16 @@
         "74000874",
         "73012440"
       ]
-    }
+    },
+    "TLSversion": {
+      "type": "string",
+      "defaultValue": "TLS1_2",
+      "allowedValues": [
+        "TLS1_0", 
+        "TLS1_1", 
+        "TLS1_2"
+      ]
+    }
   },
   "variables": {
     "dataStorageAccountName": "[concat(parameters('prefix'), uniqueString(resourceGroup().id))]",
@@ -348,7 +357,10 @@
           },
           "costCenter": {
             "value": "[parameters('costCenter')]"
-          }
+          },
+          "TLSversion": {
+            "value": "[parameters('TLSversion')]"
+          }
         }
       }
     },

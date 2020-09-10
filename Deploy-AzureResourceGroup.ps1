@@ -89,7 +89,7 @@ if ($UploadArtifacts) {
     if ($StorageAccount -eq $null) {
         $StorageResourceGroupName = 'ARM_Deploy_Staging'
         New-AzResourceGroup -Location "$ResourceGroupLocation" -Name $StorageResourceGroupName -Force 
-        $StorageAccount = New-AzStorageAccount -StorageAccountName $StorageAccountName -Type 'Standard_LRS' -ResourceGroupName $StorageResourceGroupName -Location "$ResourceGroupLocation"
+        $StorageAccount = New-AzStorageAccount -StorageAccountName $StorageAccountName -Type 'Standard_LRS' -ResourceGroupName $StorageResourceGroupName -Location "$ResourceGroupLocation" -Tag @{costCenter=$costTag}
     }
 
     # Generate the value for artifacts location if it is not provided in the parameter file

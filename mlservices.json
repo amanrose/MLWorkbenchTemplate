@@ -37,7 +37,10 @@
     },
     "costCenter": {
       "type": "string"
-    }
+    },
+    "TLSversion": {
+      "type": "string"
+    }
   },
   "variables": {
     "dataFactoryName": "[parameters('dataFactoryName')]",
@@ -81,7 +84,20 @@
         "costCenter": "[parameters('costCenter')]"
       },
       "kind": "StorageV2",
-      "properties": {
+        "properties": {
+            "networkAcls": {
+              "bypass": "[variables('storageEndptBypass')]",
+              "virtualNetworkRules": [
+              {
+                "id": "[variables('subnetId')]",
+                "action": "Allow"
+              }
+              ],
+              "ipRules": [],
+              "defaultAction": "deny"
+            },
+        "supportsHttpsTrafficOnly": true,
+        "minimumTlsVersion": "[parameters('TLSversion')]",
         "encryption": {
           "services": {
             "blob": {
@@ -92,18 +108,7 @@
             }
           },
           "keySource": "Microsoft.Storage",
-          "networkAcls": {
-            "bypass": "[variables('storageEndptBypass')]",
-            "virtualNetworkRules": [
-              {
-                "id": "[variables('subnetId')]",
-                "action": "Allow"
-              }
-            ],
-            "defaultAction": "Deny"
-          }
-        },
-        "supportsHttpsTrafficOnly": true
+        }
       }
     },
     {
