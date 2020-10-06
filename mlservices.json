@@ -87,14 +87,9 @@
         "properties": {
             "networkAcls": {
               "bypass": "[variables('storageEndptBypass')]",
-              "virtualNetworkRules": [
-              {
-                "id": "[variables('subnetId')]",
-                "action": "Allow"
-              }
-              ],
+              "virtualNetworkRules": [],
               "ipRules": [],
-              "defaultAction": "deny"
+              "defaultAction": "Allow"
             },
         "supportsHttpsTrafficOnly": true,
         "minimumTlsVersion": "[parameters('TLSversion')]",
@@ -107,7 +102,7 @@
               "enabled": true
             }
           },
-          "keySource": "Microsoft.Storage",
+          "keySource": "Microsoft.Storage"
         }
       }
     },

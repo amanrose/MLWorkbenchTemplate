@@ -16,7 +16,7 @@
     },
     "vmSize": {
       "type": "string",
-      "defaultValue": "Standard_D2_V2",
+      "defaultValue": "Standard_D2_v3",
       "allowedValues": [
         "Standard_D1",
         "Standard_D2",
@@ -113,13 +113,15 @@
       "type": "string",
       "metadata": {
         "description": "object id of the user or group to grant access to"
-      }
+      },
+      "defaultValue": "---"
     },
     "roleDefID": {
       "type": "string",
       "metadata": {
         "description": "GUID of the role to assign user(s) to"
-      }
+      },
+      "defaultValue": "--"
     },
     "runRBAC": {
       "type": "bool",
